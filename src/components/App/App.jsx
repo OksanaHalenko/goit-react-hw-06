@@ -19,11 +19,7 @@ function App() {
   const visibleContact = contacts.filter((contact) =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
-  const addContact = (newContact) => {
-    setContacts((prevContacts) => {
-      return [...prevContacts, newContact];
-    });
-  };
+
   useEffect(() => {
     window.localStorage.setItem("saved-contacts", JSON.stringify(contacts));
   }, [contacts]);
@@ -36,7 +32,7 @@ function App() {
   return (
     <div className={css.container}>
       <h1 className={css.title}>Phonebook</h1>
-      <ContactForm addContact={addContact} />
+      <ContactForm />
       <hr />
       <SearchBox value={filter} onFilter={setFilter} />
       <hr />

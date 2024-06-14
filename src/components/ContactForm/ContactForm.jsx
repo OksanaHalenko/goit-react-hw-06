@@ -3,9 +3,10 @@ import css from "./ContactForm.module.css";
 import { useId } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { nanoid } from "nanoid";
+import { useDispatch } from "react-redux";
+import { addContact } from "../../redux/contactsSlice";
 
-function ContactForm({ addContact }) {
+function ContactForm() {
   const nameId = useId();
   const phoneId = useId();
   const ContactSchema = Yup.object().shape({
@@ -15,11 +16,9 @@ function ContactForm({ addContact }) {
       .required("Required"),
     number: Yup.number().positive().integer().required("Required"),
   });
-  const handleSubmit = (value, actions) => {
-    addContact({
-      id: nanoid(),
-      ...value,
-    });
+  const dispatch = useDispatch();
+  const handleSubmit = ({ number, name }, actions) => {
+    dispatch(addContact(name, number));
     actions.resetForm();
   };
 
