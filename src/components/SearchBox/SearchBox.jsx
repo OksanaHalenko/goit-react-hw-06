@@ -4,7 +4,7 @@ import { changeFilter, selectNameFilter } from "../../redux/filtersSlice";
 
 function SearchBox() {
   const value = useSelector(selectNameFilter);
-  const onFilter = useDispatch(changeFilter);
+  const dispatch = useDispatch();
   return (
     <div className={css.wrapper}>
       <p className={css.text}>Find contacts by name</p>
@@ -13,7 +13,7 @@ function SearchBox() {
         type="text"
         value={value}
         onChange={(event) => {
-          onFilter(event.target.value);
+          dispatch(changeFilter(event.target.value));
         }}
       ></input>
     </div>
